@@ -137,6 +137,27 @@ func switchControlStructure() {
 	fmt.Println()
 }
 
+func connectToDb() {
+	fmt.Println("[INFO] - ok, connected to db")
+}
+
+func disconnectFromDb() {
+	fmt.Println("[INFO] - ok, disconnected from db")
+}
+
+func deferControlStructure() {
+	connectToDb()
+	fmt.Println("[DEBUG] - Defering the database disconnect.")
+	defer disconnectFromDb()
+	fmt.Println("[DEBUG] - Doing some DB Operations ...")
+	fmt.Println("[ERROR] - Oops! some crash or network error ...")
+	fmt.Println("[DEBUG] - Returning from function here!")
+	fmt.Println()
+	return 
+
+	// deferred function is executed here just before this method actually returns.
+}
+
 func main() {
 	// The Hello World
 	fmt.Println("Hello World!")
@@ -155,4 +176,6 @@ func main() {
 	forLoopControlStructure()
 
 	switchControlStructure()
+
+	deferControlStructure()
 }
