@@ -13,6 +13,16 @@ func main() {
 	fmt.Println("j is: ", j)
 	fmt.Println()
 
+	defaultValuesAddressMemoryLocation()
+
+	ifControlStructure()
+
+	forLoopControlStructure()
+
+	switchControlStructure()
+}
+
+func defaultValuesAddressMemoryLocation() {
 	// Default values of primitive types
 	// Addresses and memory location
 	var k int
@@ -48,7 +58,9 @@ func main() {
 	fmt.Println("address of c is: ", &c)
 	fmt.Println("value at", &c, " is:", *(&c))
 	fmt.Print("\n\r")
+}
 
+func ifControlStructure() {
 	// Control structure - if..else
 
 	a, b := 4, 5
@@ -62,7 +74,9 @@ func main() {
 		fmt.Println("a is equal to b")
 	}
 	fmt.Println()
+}
 
+func forLoopControlStructure() {
 	// Control structure - for loop, break , continue, range
 	for i := 0; i < 5; i++ {
 		fmt.Println("Value of i is now:", i)
@@ -107,4 +121,38 @@ func main() {
 	for key, val := range x {
 		fmt.Println("Capital of", key,"is", val)
 	}
+	fmt.Println()
+}
+
+func switchControlStructure() {
+	// Switch on integer
+	w := 5
+	switch w {
+		case 4: fmt.Println("w is 4")
+		case 5: fmt.Println("w is 5")
+		case 6: fmt.Println("w is 6")
+		default: fmt.Println("default")
+	}
+	fmt.Println()
+
+	// Swith on integer with multiple cases
+	u := 4
+	switch u {
+		case 1,3,5,7,9: fmt.Println(u, "is odd")
+		case 0,2,4,6,8: fmt.Println(u, "is even")
+		default: fmt.Println(u, "does not fall within 0-9 values")
+	}
+	fmt.Println()
+
+	// Switch on string
+	v := 6
+	switch v {
+		case 4: fmt.Println(v, "was <= 4"); fallthrough;
+		case 5: fmt.Println(v, "was <= 5"); fallthrough;
+		case 6: fmt.Println(v, "was <= 6"); fallthrough;
+		case 7: fmt.Println(v, "was <= 7"); fallthrough;
+		case 8: fmt.Println(v, "was <= 8");
+		default: fmt.Println("default case");
+	}
+	fmt.Println()
 }
