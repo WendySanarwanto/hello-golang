@@ -2,26 +2,6 @@ package main
 
 import "fmt"
 
-func main() {
-	// The Hello World
-	fmt.Println("Hello World!")
-
-	// declare & initialise primitive variables
-	i := 5
-	var j int
-	fmt.Println("i is: ", i)
-	fmt.Println("j is: ", j)
-	fmt.Println()
-
-	defaultValuesAddressMemoryLocation()
-
-	ifControlStructure()
-
-	forLoopControlStructure()
-
-	switchControlStructure()
-}
-
 func defaultValuesAddressMemoryLocation() {
 	// Default values of primitive types
 	// Addresses and memory location
@@ -155,4 +135,24 @@ func switchControlStructure() {
 		default: fmt.Println("default case");
 	}
 	fmt.Println()
+}
+
+func main() {
+	// The Hello World
+	fmt.Println("Hello World!")
+
+	// declare & initialise primitive variables
+	i := 5
+	var j int
+	fmt.Println("i is: ", i)
+	fmt.Println("j is: ", j)
+	fmt.Println()
+
+	defaultValuesAddressMemoryLocation()
+
+	ifControlStructure()
+
+	forLoopControlStructure()
+
+	switchControlStructure()
 }
