@@ -234,7 +234,7 @@ func multipleReturnValuesWithErrorHandling() {
 	fmt.Println()	
 }
 
-// ------------------- OOP -------------------------------------
+// ------------------- OOP - Declaring struct and its members -------------------------------------
 
 // In C#, these would be like:
 // 
@@ -275,6 +275,8 @@ func structsInGo () {
 	fmt.Println()
 }
 
+// ------------------- OOP - Anonymous field -------------------------------------
+
 type RAM struct {
 	numOfSlot int	
 }
@@ -287,7 +289,37 @@ type Motherboard struct {
 func anonymousFieldsInStruct() {
 	mobo := Motherboard{ RAM{4}, "Intel Z170" }
 	fmt.Println("mobo has", mobo.RAM, "RAM slots. The chipset is", mobo.chipset)
+	fmt.Println()
 }
+
+// ------------------- OOP - Inheritance -------------------------------------
+
+type Computer struct {
+	Ram int
+	Cpu string
+	Os string
+	Model string
+}
+
+func (computer Computer) PrintModelSummary() {
+	fmt.Println("Model:", computer.Model, ",RAM:", computer.Ram, "GB, CPU:", computer.Cpu, ", OS:", computer.Os)
+}
+
+type Notebook struct {
+	Computer
+	ScreenSize int
+}
+
+func inheritanceInStruct() {
+	asusRogGr8 := Computer{16, "Intel i7", "Windows 10", "ASUS ROG GR8 Gaming Desktop PC"}
+	macbook := Notebook{Computer{8, "Intel i5", "Mac OSX Sierra", "Apple Macbook Air 11"}, 11}
+
+	asusRogGr8.PrintModelSummary()
+	macbook.PrintModelSummary()
+
+	fmt.Println()
+}
+
 
 func main() {
 	// The Hello World
@@ -319,4 +351,6 @@ func main() {
 	structsInGo()
 
 	anonymousFieldsInStruct()
+
+	inheritanceInStruct()
 }
