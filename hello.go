@@ -143,6 +143,7 @@ func connectToDb() {
 
 func disconnectFromDb() {
 	fmt.Println("[INFO] - ok, disconnected from db")
+	fmt.Println()	
 }
 
 func deferControlStructure() {
@@ -152,10 +153,15 @@ func deferControlStructure() {
 	fmt.Println("[DEBUG] - Doing some DB Operations ...")
 	fmt.Println("[ERROR] - Oops! some crash or network error ...")
 	fmt.Println("[DEBUG] - Returning from function here!")
-	fmt.Println()
 	return 
 
 	// deferred function is executed here just before this method actually returns.
+}
+
+func multipleDefersControlStructure() {
+	// These defered calls will be executed in LIFO order: connectToDb() -> disconnectFromDb()
+	defer disconnectFromDb()
+	defer connectToDb()
 }
 
 func main() {
@@ -178,4 +184,6 @@ func main() {
 	switchControlStructure()
 
 	deferControlStructure()
+
+	multipleDefersControlStructure()
 }
