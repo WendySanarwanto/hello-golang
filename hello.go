@@ -275,6 +275,20 @@ func structsInGo () {
 	fmt.Println()
 }
 
+type RAM struct {
+	numOfSlot int	
+}
+
+type Motherboard struct {
+	RAM // Anynomous field
+	chipset string
+}
+
+func anonymousFieldsInStruct() {
+	mobo := Motherboard{ RAM{4}, "Intel Z170" }
+	fmt.Println("mobo has", mobo.RAM, "RAM slots. The chipset is", mobo.chipset)
+}
+
 func main() {
 	// The Hello World
 	fmt.Println("Hello World!")
@@ -303,4 +317,6 @@ func main() {
 	multipleReturnValuesWithErrorHandling()
 
 	structsInGo()
+
+	anonymousFieldsInStruct()
 }
