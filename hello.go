@@ -234,6 +234,47 @@ func multipleReturnValuesWithErrorHandling() {
 	fmt.Println()	
 }
 
+// ------------------- OOP -------------------------------------
+
+// In C#, these would be like:
+// 
+// public class Rectangle {
+//	  length int;
+//	  width int;
+//	  public Name string;
+//
+//	  public int GetRectangleArea() {
+//		return length * width;
+//	  }
+// }
+
+type Rectangle struct {
+	length, width int
+	Name string
+}
+func (r Rectangle) GetRectangleArea () int {
+	return r.width * r.length
+}
+
+func structsInGo () {
+	rect1 := Rectangle{10, 5, "Rectangle_1"} // instantiate & initialize values in order they are defined in struct
+	area := rect1.GetRectangleArea()
+	fmt.Println("Rectangle rect1 is:", rect1, ", area of Rectangle_1:", area)
+
+	rect2 := Rectangle{length: 4, width: 5, Name: "Rectangle_2"} // instantiate & initialize values by variable name in any order
+	area = rect2.GetRectangleArea()	
+	fmt.Println("Rectangle rect2 is:", rect2, ", area:", area)
+
+	rect3 := new (Rectangle) // Instantiate a new object using new. The result will be pointer to the object. 
+	(*rect3).width = 6 // Accessing the object's property using * operand 
+	rect3.length = 5 // //set value using . notation - same as previous.  There is no -> operator like in c++. Go automatically converts
+	rect3.Name = "Rectangle_3"
+	area = rect3.GetRectangleArea()
+	fmt.Println("Rectangle rect3 as address is:", rect3, " as value is:", *rect3, ", area:", area)
+
+	fmt.Println()
+}
+
 func main() {
 	// The Hello World
 	fmt.Println("Hello World!")
@@ -260,4 +301,6 @@ func main() {
 	multipleReturnValues()
 
 	multipleReturnValuesWithErrorHandling()
+
+	structsInGo()
 }
