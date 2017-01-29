@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import ( 
+	"fmt"
+	"errors"
+	"math"
+)
 
 func defaultValuesAddressMemoryLocation() {
 	// Default values of primitive types
@@ -181,6 +185,55 @@ func multipleReturnValues() {
 	fmt.Println("The diff of",a,"and",b,"is", diff,"\n\r")
 }
 
+func MySqrt(f float64) (float64, error) {
+	// return error when the argument is invalid
+	if (f < 1){
+		return float64(math.NaN()), errors.New("Unable to sqrt the value.")
+	}
+
+	return math.Sqrt(f), nil
+}
+
+func MySqrtWithNamedReturns(f float64) (ret float64, err error) {
+	if (f < 1){
+		ret = float64(math.NaN())
+		err = errors.New("Unable to sqrt the value.")
+	} else {
+		ret = math.Sqrt(f)
+		//err is not assigned, so it gets default value nil		
+	}
+
+	//automatically return the named return variables ret and err
+	return
+}
+
+func printMySqrtResults(result float64, err error) {
+	if err != nil {
+		fmt.Println("Error! Return values are", result,"and error:", err)
+	} else {
+		fmt.Println("It's ok! Return values are", result,"and error:", err)
+	}
+}
+
+func multipleReturnValuesWithErrorHandling() {
+	val := float64(-1)
+	fmt.Print("First try with", val, ": ")
+	ret1, err1 := MySqrt(val)
+	printMySqrtResults(ret1, err1)
+
+	val = 9
+	fmt.Print("Second try with", val,": ")
+	ret2, err2 := MySqrt(val)
+	printMySqrtResults(ret2, err2)
+	fmt.Println()
+
+	val = 81
+	fmt.Print("Third try with", val,": ")
+	ret3, err3 := MySqrtWithNamedReturns(val)
+	printMySqrtResults(ret3, err3)
+	fmt.Println()	
+}
+
 func main() {
 	// The Hello World
 	fmt.Println("Hello World!")
@@ -205,4 +258,6 @@ func main() {
 	multipleDefersControlStructure()
 
 	multipleReturnValues()
+
+	multipleReturnValuesWithErrorHandling()
 }
