@@ -137,6 +137,8 @@ func switchControlStructure() {
 	fmt.Println()
 }
 
+//--------------- Defer demo ----------------------------------------------------------------------
+
 func connectToDb() {
 	fmt.Println("[INFO] - ok, connected to db")
 }
@@ -164,6 +166,21 @@ func multipleDefersControlStructure() {
 	defer connectToDb()
 }
 
+//--------------------------- Multiple Return values demo ---------------------------------------
+
+func SumProductDiff(a, b int) (int, int, int) {
+	return a+b, a*b, a-b
+}
+
+func multipleReturnValues() {
+	a := 4
+	b := 3
+	sum, prod, diff := SumProductDiff(a,b)
+	fmt.Println("The sum of",a,"and",b,"is", sum)
+	fmt.Println("The product of",a,"and",b,"is", prod)
+	fmt.Println("The diff of",a,"and",b,"is", diff,"\n\r")
+}
+
 func main() {
 	// The Hello World
 	fmt.Println("Hello World!")
@@ -186,4 +203,6 @@ func main() {
 	deferControlStructure()
 
 	multipleDefersControlStructure()
+
+	multipleReturnValues()
 }
