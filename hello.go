@@ -320,6 +320,30 @@ func inheritanceInStruct() {
 	fmt.Println()
 }
 
+// ------------------- OOP - Multiple Inheritances ---------------------------
+type Camera struct { }
+func (_ Camera) takePicture() string { // //not using the type, so discard it by putting a _
+	return "* Click * - A picture is taken"
+}
+
+type Phone struct { }
+func (_ Phone) call() string {
+	return "* Ring ring * - Connecting to the dialed a number"
+}
+
+type SmartPhone struct { 
+	Camera
+	Phone
+	Model string
+}
+
+func multipleInheritance() {
+	samsungGalaxy := new (SmartPhone)
+	samsungGalaxy.Model = "Samsung Galaxy S7"
+	fmt.Println("Press camera button on my", samsungGalaxy.Model, ":", samsungGalaxy.takePicture())
+	fmt.Println("Press dial buttons on my", samsungGalaxy.Model, ":", samsungGalaxy.call())
+	fmt.Println()
+}
 
 func main() {
 	// The Hello World
@@ -353,4 +377,6 @@ func main() {
 	anonymousFieldsInStruct()
 
 	inheritanceInStruct()
+
+	multipleInheritance()
 }
