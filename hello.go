@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"math"
+	"time"
 )
 
 func defaultValuesAddressMemoryLocation() {
@@ -437,6 +438,29 @@ func polymorphismInGo() {
 	fmt.Println()
 }
 
+// ------------------- Routine ---------------------------------------
+
+type Animal interface {
+	doRun(distanceInMeter int) string
+}
+
+type Mamal struct {
+	race, name string
+	speedInKilometerPerHour int
+}
+
+func (m Mamal) doRun(distanceInMeter int) string {
+	speedInMeterPerSec := m.speedInKilometerPerHour * 1000 / 3600
+	timeInSecs := distanceInMeter / speedInMeterPerSec
+	time.Sleep(timeInSecs 1e9)
+
+}
+
+func animalRaces() {
+	bugsBunny := Mamal {"bunny", "bugsBunny", 120}
+	sylverster := Mamal {"cat", "Sylvester", 110}
+	
+}
 
 func main() {
 	// The Hello World
