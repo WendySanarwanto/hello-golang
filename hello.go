@@ -347,6 +347,11 @@ type Dialable interface {
 	call() string
 }
 
+type Swipable interface {
+	swipeLeft() string
+	swipeRight() string
+}
+
 // ------------------- OOP - Multiple Inheritances ---------------------------
 type Camera struct{}
 
@@ -366,13 +371,25 @@ type SmartPhone struct {
 	Model string
 }
 
+func (_ SmartPhone) swipeLeft() string {
+	return " Screen Menu is sliding to left side"
+}
+
+func (_ SmartPhone) swipeRight() string {
+	return " Screen Menu is sliding to right side"
+}
+
 func multipleInheritanceWithInterface() {
 	samsungGalaxy := new(SmartPhone) // Instantiate smartphone object
 	picturable := Picturable(samsungGalaxy) // Get Picturable interface from the smartphone object
 	dialable := Dialable(samsungGalaxy) // Get Diallable interface from the smartphone object
+	swipable := Swipable(samsungGalaxy) // Get Swipable interface from the smartphone object
 	samsungGalaxy.Model = "Samsung Galaxy S7"
 	fmt.Println("Press camera button on my", samsungGalaxy.Model, ":", picturable.takePicture()) // Calling takePicture method from Picturable interface
 	fmt.Println("Press dial buttons on my", samsungGalaxy.Model, ":", dialable.call()) // Calling call method from Dialable interface
+	fmt.Println()
+	fmt.Println("Swipe the display of my", samsungGalaxy.Model, "to righthand side:", swipable.swipeRight()) // Calling swipeRight method from Swipable interface
+	fmt.Println("Swipe the display of my", samsungGalaxy.Model, "to lefthand side:", swipable.swipeLeft()) // Calling swipeLeft method from Swipable interface
 	fmt.Println()
 }
 
