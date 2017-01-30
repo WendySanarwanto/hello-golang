@@ -441,25 +441,38 @@ func polymorphismInGo() {
 // ------------------- Routine ---------------------------------------
 
 type Animal interface {
-	doRace(distanceInMeter int) string
+	doRace(distanceInMeter int64)
 }
 
 type Mamal struct {
 	race, name string
-	speedInKilometerPerHour int
+	speedInKilometerPerHour int64
 }
 
-func (m Mamal) doRace(distanceInMeter int) string {
+func (m Mamal) doRace(distanceInMeter int64) {
 	speedInMeterPerSec := m.speedInKilometerPerHour * 1000 / 3600
 	timeInSecs := distanceInMeter / speedInMeterPerSec
-	time.Sleep(timeInSecs 1e9)
 
+	//fmt.Println()
+	time.Sleep( time.Duration(timeInSecs * 1e9) )
+	// fmt.
 }
 
 func animalRaces() {
-	bugsBunny := Mamal {"bunny", "bugsBunny", 120}
-	sylverster := Mamal {"cat", "Sylvester", 110}
+	bugsBunny := Mamal {"bunny", "Bugs Bunny", 60} // Speed: 52 kmh
+	sylvester := Mamal {"cat", "Sylvester", 45}    // Speed: 45 kmh
+	jerryTheMouse := Mamal {"mouse", "Jerry", 130} // Speed: 130 kmh
+	tomTheCat := Mamal {"cat", "Sylvester", 55}    // Speed: 45 kmh
 
+	contestants := [...] Animal { bugsBunny, sylvester, jerryTheMouse, tomTheCat }
+	distantToRace := 1000 // 1 km
+
+	// Start the animal races
+	for m := range contestants {
+		go contestants[m].doRace(distantToRace)
+	}
+
+	time.Sleep(120) // wait them all until they all finished their races, for 2 minutes
 }
 
 func main() {
