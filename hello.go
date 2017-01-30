@@ -441,7 +441,7 @@ func polymorphismInGo() {
 // ------------------- Routine ---------------------------------------
 
 type Animal interface {
-	doRun(distanceInMeter int) string
+	doRace(distanceInMeter int) string
 }
 
 type Mamal struct {
@@ -449,7 +449,7 @@ type Mamal struct {
 	speedInKilometerPerHour int
 }
 
-func (m Mamal) doRun(distanceInMeter int) string {
+func (m Mamal) doRace(distanceInMeter int) string {
 	speedInMeterPerSec := m.speedInKilometerPerHour * 1000 / 3600
 	timeInSecs := distanceInMeter / speedInMeterPerSec
 	time.Sleep(timeInSecs 1e9)
@@ -459,7 +459,7 @@ func (m Mamal) doRun(distanceInMeter int) string {
 func animalRaces() {
 	bugsBunny := Mamal {"bunny", "bugsBunny", 120}
 	sylverster := Mamal {"cat", "Sylvester", 110}
-	
+
 }
 
 func main() {
