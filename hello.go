@@ -1,8 +1,8 @@
 package main
 
-import ( 
-	"fmt"
+import (
 	"errors"
+	"fmt"
 	"math"
 )
 
@@ -95,15 +95,15 @@ func forLoopControlStructure() {
 	fmt.Println()
 
 	// For range loop
-	y := [...]string{"a","b","c","d"}
+	y := [...]string{"a", "b", "c", "d"}
 	for i := range y {
-		fmt.Println("Array item", i, "is", y[i]);
+		fmt.Println("Array item", i, "is", y[i])
 	}
 	fmt.Println()
 
-	x := map[string] string {"France": "Paris", "Japan": "Tokyo", "Korea":"Seoul", "USA": "Washington DC"}
+	x := map[string]string{"France": "Paris", "Japan": "Tokyo", "Korea": "Seoul", "USA": "Washington DC"}
 	for key, val := range x {
-		fmt.Println("Capital of", key,"is", val)
+		fmt.Println("Capital of", key, "is", val)
 	}
 	fmt.Println()
 }
@@ -112,31 +112,48 @@ func switchControlStructure() {
 	// Switch on integer
 	w := 5
 	switch w {
-		case 4: fmt.Println("w is 4")
-		case 5: fmt.Println("w is 5")
-		case 6: fmt.Println("w is 6")
-		default: fmt.Println("default")
+	case 4:
+		fmt.Println("w is 4")
+	case 5:
+		fmt.Println("w is 5")
+	case 6:
+		fmt.Println("w is 6")
+	default:
+		fmt.Println("default")
 	}
 	fmt.Println()
 
 	// Swith on integer with multiple cases
 	u := 4
 	switch u {
-		case 1,3,5,7,9: fmt.Println(u, "is odd")
-		case 0,2,4,6,8: fmt.Println(u, "is even")
-		default: fmt.Println(u, "does not fall within 0-9 values")
+	case 1, 3, 5, 7, 9:
+		fmt.Println(u, "is odd")
+	case 0, 2, 4, 6, 8:
+		fmt.Println(u, "is even")
+	default:
+		fmt.Println(u, "does not fall within 0-9 values")
 	}
 	fmt.Println()
 
 	// Switch on string
 	v := 6
 	switch v {
-		case 4: fmt.Println(v, "was <= 4"); fallthrough;
-		case 5: fmt.Println(v, "was <= 5"); fallthrough;
-		case 6: fmt.Println(v, "was <= 6"); fallthrough;
-		case 7: fmt.Println(v, "was <= 7"); fallthrough;
-		case 8: fmt.Println(v, "was <= 8");
-		default: fmt.Println("default case");
+	case 4:
+		fmt.Println(v, "was <= 4")
+		fallthrough
+	case 5:
+		fmt.Println(v, "was <= 5")
+		fallthrough
+	case 6:
+		fmt.Println(v, "was <= 6")
+		fallthrough
+	case 7:
+		fmt.Println(v, "was <= 7")
+		fallthrough
+	case 8:
+		fmt.Println(v, "was <= 8")
+	default:
+		fmt.Println("default case")
 	}
 	fmt.Println()
 }
@@ -149,7 +166,7 @@ func connectToDb() {
 
 func disconnectFromDb() {
 	fmt.Println("[INFO] - ok, disconnected from db")
-	fmt.Println()	
+	fmt.Println()
 }
 
 func deferControlStructure() {
@@ -159,7 +176,7 @@ func deferControlStructure() {
 	fmt.Println("[DEBUG] - Doing some DB Operations ...")
 	fmt.Println("[ERROR] - Oops! some crash or network error ...")
 	fmt.Println("[DEBUG] - Returning from function here!")
-	return 
+	return
 
 	// deferred function is executed here just before this method actually returns.
 }
@@ -173,21 +190,21 @@ func multipleDefersControlStructure() {
 //--------------------------- Multiple Return values demo ---------------------------------------
 
 func SumProductDiff(a, b int) (int, int, int) {
-	return a+b, a*b, a-b
+	return a + b, a * b, a - b
 }
 
 func multipleReturnValues() {
 	a := 4
 	b := 3
-	sum, prod, diff := SumProductDiff(a,b)
-	fmt.Println("The sum of",a,"and",b,"is", sum)
-	fmt.Println("The product of",a,"and",b,"is", prod)
-	fmt.Println("The diff of",a,"and",b,"is", diff,"\n\r")
+	sum, prod, diff := SumProductDiff(a, b)
+	fmt.Println("The sum of", a, "and", b, "is", sum)
+	fmt.Println("The product of", a, "and", b, "is", prod)
+	fmt.Println("The diff of", a, "and", b, "is", diff, "\n\r")
 }
 
 func MySqrt(f float64) (float64, error) {
 	// return error when the argument is invalid
-	if (f < 1){
+	if f < 1 {
 		return float64(math.NaN()), errors.New("Unable to sqrt the value.")
 	}
 
@@ -195,12 +212,12 @@ func MySqrt(f float64) (float64, error) {
 }
 
 func MySqrtWithNamedReturns(f float64) (ret float64, err error) {
-	if (f < 1){
+	if f < 1 {
 		ret = float64(math.NaN())
 		err = errors.New("Unable to sqrt the value.")
 	} else {
 		ret = math.Sqrt(f)
-		//err is not assigned, so it gets default value nil		
+		//err is not assigned, so it gets default value nil
 	}
 
 	//automatically return the named return variables ret and err
@@ -209,9 +226,9 @@ func MySqrtWithNamedReturns(f float64) (ret float64, err error) {
 
 func printMySqrtResults(result float64, err error) {
 	if err != nil {
-		fmt.Println("Error! Return values are", result,"and error:", err)
+		fmt.Println("Error! Return values are", result, "and error:", err)
 	} else {
-		fmt.Println("It's ok! Return values are", result,"and error:", err)
+		fmt.Println("It's ok! Return values are", result, "and error:", err)
 	}
 }
 
@@ -222,22 +239,22 @@ func multipleReturnValuesWithErrorHandling() {
 	printMySqrtResults(ret1, err1)
 
 	val = 9
-	fmt.Print("Second try with", val,": ")
+	fmt.Print("Second try with", val, ": ")
 	ret2, err2 := MySqrt(val)
 	printMySqrtResults(ret2, err2)
 	fmt.Println()
 
 	val = 81
-	fmt.Print("Third try with", val,": ")
+	fmt.Print("Third try with", val, ": ")
 	ret3, err3 := MySqrtWithNamedReturns(val)
 	printMySqrtResults(ret3, err3)
-	fmt.Println()	
+	fmt.Println()
 }
 
 // ------------------- OOP - Declaring struct and its members -------------------------------------
 
 // In C#, these would be like:
-// 
+//
 // public class Rectangle {
 //	  length int;
 //	  width int;
@@ -250,24 +267,25 @@ func multipleReturnValuesWithErrorHandling() {
 
 type Rectangle struct {
 	length, width int
-	Name string
+	Name          string
 }
-func (r Rectangle) GetRectangleArea () int {
+
+func (r Rectangle) GetRectangleArea() int {
 	return r.width * r.length
 }
 
-func structsInGo () {
+func structsInGo() {
 	rect1 := Rectangle{10, 5, "Rectangle_1"} // instantiate & initialize values in order they are defined in struct
 	area := rect1.GetRectangleArea()
 	fmt.Println("Rectangle rect1 is:", rect1, ", area of Rectangle_1:", area)
 
 	rect2 := Rectangle{length: 4, width: 5, Name: "Rectangle_2"} // instantiate & initialize values by variable name in any order
-	area = rect2.GetRectangleArea()	
+	area = rect2.GetRectangleArea()
 	fmt.Println("Rectangle rect2 is:", rect2, ", area:", area)
 
-	rect3 := new (Rectangle) // Instantiate a new object using new. The result will be pointer to the object. 
-	(*rect3).width = 6 // Accessing the object's property using * operand 
-	rect3.length = 5 // //set value using . notation - same as previous.  There is no -> operator like in c++. Go automatically converts
+	rect3 := new(Rectangle) // Instantiate a new object using new. The result will be pointer to the object.
+	(*rect3).width = 6      // Accessing the object's property using * operand
+	rect3.length = 5        // //set value using . notation - same as previous.  There is no -> operator like in c++. Go automatically converts
 	rect3.Name = "Rectangle_3"
 	area = rect3.GetRectangleArea()
 	fmt.Println("Rectangle rect3 as address is:", rect3, " as value is:", *rect3, ", area:", area)
@@ -278,16 +296,16 @@ func structsInGo () {
 // ------------------- OOP - Anonymous field -------------------------------------
 
 type RAM struct {
-	numOfSlot int	
+	numOfSlot int
 }
 
 type Motherboard struct {
-	RAM // Anynomous field
+	RAM     // Anynomous field
 	chipset string
 }
 
 func anonymousFieldsInStruct() {
-	mobo := Motherboard{ RAM{4}, "Intel Z170" }
+	mobo := Motherboard{RAM{4}, "Intel Z170"}
 	fmt.Println("mobo has", mobo.RAM, "RAM slots. The chipset is", mobo.chipset)
 	fmt.Println()
 }
@@ -295,9 +313,9 @@ func anonymousFieldsInStruct() {
 // ------------------- OOP - Inheritance -------------------------------------
 
 type Computer struct {
-	Ram int
-	Cpu string
-	Os string
+	Ram   int
+	Cpu   string
+	Os    string
 	Model string
 }
 
@@ -320,28 +338,41 @@ func inheritanceInStruct() {
 	fmt.Println()
 }
 
+// ------------------- OOP - Interface ---------------------------------------
+type Picturable interface {
+	takePicture() string
+}
+
+type Dialable interface {
+	call() string
+}
+
 // ------------------- OOP - Multiple Inheritances ---------------------------
-type Camera struct { }
+type Camera struct{}
+
 func (_ Camera) takePicture() string { // //not using the type, so discard it by putting a _
 	return "* Click * - A picture is taken"
 }
 
-type Phone struct { }
+type Phone struct{}
+
 func (_ Phone) call() string {
 	return "* Ring ring * - Connecting to the dialed a number"
 }
 
-type SmartPhone struct { 
+type SmartPhone struct {
 	Camera
 	Phone
 	Model string
 }
 
-func multipleInheritance() {
-	samsungGalaxy := new (SmartPhone)
+func multipleInheritanceWithInterface() {
+	samsungGalaxy := new(SmartPhone) // Instantiate smartphone object
+	picturable := Picturable(samsungGalaxy) // Get Picturable interface from the smartphone object
+	dialable := Dialable(samsungGalaxy) // Get Diallable interface from the smartphone object
 	samsungGalaxy.Model = "Samsung Galaxy S7"
-	fmt.Println("Press camera button on my", samsungGalaxy.Model, ":", samsungGalaxy.takePicture())
-	fmt.Println("Press dial buttons on my", samsungGalaxy.Model, ":", samsungGalaxy.call())
+	fmt.Println("Press camera button on my", samsungGalaxy.Model, ":", picturable.takePicture()) // Calling takePicture method from Picturable interface
+	fmt.Println("Press dial buttons on my", samsungGalaxy.Model, ":", dialable.call()) // Calling call method from Dialable interface
 	fmt.Println()
 }
 
@@ -378,5 +409,5 @@ func main() {
 
 	inheritanceInStruct()
 
-	multipleInheritance()
+	multipleInheritanceWithInterface()
 }
