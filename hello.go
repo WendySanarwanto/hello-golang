@@ -393,6 +393,51 @@ func multipleInheritanceWithInterface() {
 	fmt.Println()
 }
 
+// ------------------- OOP - Polymorphism ---------------------------
+type GamingDevice interface {
+	GetPlatform() string
+	GetControllers() string
+}
+
+type Console struct{
+	platform, controllers string
+}
+
+func (console Console) GetPlatform() string {
+	return console.platform
+}
+
+func (console Console) GetControllers() string {
+	return console.controllers
+}
+
+type PC struct {}
+
+func (pc PC) GetPlatform() string {
+	return "Microsoft Windows PC"
+}
+
+func (pc PC) GetControllers() string {
+	return "Keyboard & Mouse"
+}
+
+func polymorphismInGo() {
+	xBone := Console{"Microsoft XBox One", "XBox gamepad controllers"}
+	ps4 := Console{"Sony Playstation 4", "PS4 gamepad controllers"}
+	pc := new (PC)
+	myGamingDevices := [...] GamingDevice {xBone, ps4, pc}
+
+	fmt.Println("Common popular gaming devices in market nowday:")
+	i := 1
+	for gd := range myGamingDevices {
+		myGamingDevice := myGamingDevices[gd]
+		fmt.Println(i, ". Platform:", myGamingDevice.GetPlatform(), ", controllers:", myGamingDevice.GetControllers() )
+		i++
+	}
+	fmt.Println()
+}
+
+
 func main() {
 	// The Hello World
 	fmt.Println("Hello World!")
@@ -427,4 +472,6 @@ func main() {
 	inheritanceInStruct()
 
 	multipleInheritanceWithInterface()
+
+	polymorphismInGo()
 }
