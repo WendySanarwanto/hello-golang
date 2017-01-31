@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"math"
+	"time"
 )
 
 func defaultValuesAddressMemoryLocation() {
@@ -380,16 +381,16 @@ func (_ SmartPhone) swipeRight() string {
 }
 
 func multipleInheritanceWithInterface() {
-	samsungGalaxy := new(SmartPhone) // Instantiate smartphone object
+	samsungGalaxy := new(SmartPhone)        // Instantiate smartphone object
 	picturable := Picturable(samsungGalaxy) // Get Picturable interface from the smartphone object
-	dialable := Dialable(samsungGalaxy) // Get Diallable interface from the smartphone object
-	swipable := Swipable(samsungGalaxy) // Get Swipable interface from the smartphone object
+	dialable := Dialable(samsungGalaxy)     // Get Diallable interface from the smartphone object
+	swipable := Swipable(samsungGalaxy)     // Get Swipable interface from the smartphone object
 	samsungGalaxy.Model = "Samsung Galaxy S7"
 	fmt.Println("Press camera button on my", samsungGalaxy.Model, ":", picturable.takePicture()) // Calling takePicture method from Picturable interface
-	fmt.Println("Press dial buttons on my", samsungGalaxy.Model, ":", dialable.call()) // Calling call method from Dialable interface
+	fmt.Println("Press dial buttons on my", samsungGalaxy.Model, ":", dialable.call())           // Calling call method from Dialable interface
 	fmt.Println()
 	fmt.Println("Swipe the display of my", samsungGalaxy.Model, "to righthand side:", swipable.swipeRight()) // Calling swipeRight method from Swipable interface
-	fmt.Println("Swipe the display of my", samsungGalaxy.Model, "to lefthand side:", swipable.swipeLeft()) // Calling swipeLeft method from Swipable interface
+	fmt.Println("Swipe the display of my", samsungGalaxy.Model, "to lefthand side:", swipable.swipeLeft())   // Calling swipeLeft method from Swipable interface
 	fmt.Println()
 }
 
@@ -399,7 +400,7 @@ type GamingDevice interface {
 	GetControllers() string
 }
 
-type Console struct{
+type Console struct {
 	platform, controllers string
 }
 
@@ -411,7 +412,7 @@ func (console Console) GetControllers() string {
 	return console.controllers
 }
 
-type PC struct {}
+type PC struct{}
 
 func (pc PC) GetPlatform() string {
 	return "Microsoft Windows PC"
@@ -424,19 +425,61 @@ func (pc PC) GetControllers() string {
 func polymorphismInGo() {
 	xBone := Console{"Microsoft XBox One", "XBox gamepad controllers"}
 	ps4 := Console{"Sony Playstation 4", "PS4 gamepad controllers"}
-	pc := new (PC)
-	myGamingDevices := [...] GamingDevice {xBone, ps4, pc}
+	pc := new(PC)
+	myGamingDevices := [...]GamingDevice{xBone, ps4, pc}
 
 	fmt.Println("Common popular gaming devices in market nowday:")
 	i := 1
 	for gd := range myGamingDevices {
 		myGamingDevice := myGamingDevices[gd]
-		fmt.Println(i, ". Platform:", myGamingDevice.GetPlatform(), ", controllers:", myGamingDevice.GetControllers() )
+		fmt.Println(i, ". Platform:", myGamingDevice.GetPlatform(), ", controllers:", myGamingDevice.GetControllers())
 		i++
 	}
 	fmt.Println()
 }
 
+// ------------------- Routine ---------------------------------------
+
+type Animal interface {
+	doRace(distanceInMeter int64)
+}
+
+type Mamal struct {
+	race, name               string
+	speedInKilometresPerHour int64
+}
+
+func (m Mamal) doRace(distanceInMeter int64) {
+	speedInMetresPerSec := m.speedInKilometresPerHour * 1000 / 3600
+	timeInSecs := distanceInMeter / speedInMetresPerSec
+
+	fmt.Println(m.name, "the", m.race, "has started his race.")
+	time.Sleep(time.Duration(timeInSecs) * time.Second)
+	fmt.Println(m.name, "the", m.race, "has reached finish line. He took", timeInSecs, "seconds to reach the finish line.")
+}
+
+func animalRaces() {
+	bugsBunny := Mamal{"bunny", "Bugs", 60}       // Speed: 60 kmh
+	sylvester := Mamal{"cat", "Sylvester", 45}    // Speed: 45 kmh
+	jerryTheMouse := Mamal{"mouse", "Jerry", 130} // Speed: 130 kmh
+	tomTheCat := Mamal{"cat", "Tom", 55}          // Speed: 55 kmh
+
+	contestants := [...]Animal{bugsBunny, sylvester, jerryTheMouse, tomTheCat}
+	var distantToRace int64
+	distantToRace = 1000 // 1 km
+
+	// Start the animal races
+	fmt.Println("1 km mamals race")
+	fmt.Println("================")
+
+	for m := range contestants {
+		go contestants[m].doRace(distantToRace)
+	}
+	fmt.Println()
+
+	waitTime := 100
+	time.Sleep(time.Duration(waitTime) * time.Second) // wait them all until they all finished their races, for 100 seconds
+}
 
 func main() {
 	// The Hello World
@@ -474,4 +517,6 @@ func main() {
 	multipleInheritanceWithInterface()
 
 	polymorphismInGo()
+
+	animalRaces()
 }
