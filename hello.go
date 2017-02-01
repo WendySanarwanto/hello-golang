@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"math"
+	"strconv"
 	"time"
 )
 
@@ -438,10 +439,10 @@ func polymorphismInGo() {
 	fmt.Println()
 }
 
-// ------------------- Routine ---------------------------------------
+// ------------------- Routine with Channel ---------------------------------------
 
 type Animal interface {
-	doRace(distanceInMeter int64)
+	doRace(distanceInMeter int64, finishChannel chan string)
 }
 
 type Mamal struct {
@@ -449,36 +450,52 @@ type Mamal struct {
 	speedInKilometresPerHour int64
 }
 
-func (m Mamal) doRace(distanceInMeter int64) {
+func (m Mamal) doRace(distanceInMeter int64, finishChannel chan string) {
 	speedInMetresPerSec := m.speedInKilometresPerHour * 1000 / 3600
 	timeInSecs := distanceInMeter / speedInMetresPerSec
 
 	fmt.Println(m.name, "the", m.race, "has started his race.")
 	time.Sleep(time.Duration(timeInSecs) * time.Second)
-	fmt.Println(m.name, "the", m.race, "has reached finish line. He took", timeInSecs, "seconds to reach the finish line.")
+	finishAnnouncement := m.name + " the " + m.race + " has reached finish line. He took " + strconv.FormatInt(timeInSecs, 10) + " seconds for finishing the race"
+	finishChannel <- finishAnnouncement // Push molded data into the channel
 }
 
 func animalRaces() {
-	bugsBunny := Mamal{"bunny", "Bugs", 60}       // Speed: 60 kmh
+	bugsBunny := Mamal{"bunny", "Bugs", 55}       // Speed: 55 kmh
 	sylvester := Mamal{"cat", "Sylvester", 45}    // Speed: 45 kmh
-	jerryTheMouse := Mamal{"mouse", "Jerry", 130} // Speed: 130 kmh
-	tomTheCat := Mamal{"cat", "Tom", 55}          // Speed: 55 kmh
+	jerryTheMouse := Mamal{"mouse", "Jerry", 25} // Speed: 25 kmh
+	tomTheCat := Mamal{"cat", "Tom", 48}          // Speed: 48 kmh
+	scoobyDoo := Mamal{"dog", "Scooby-Doo", 72}	 // Speed: 72 kmh
+	contestants := [...]Animal{bugsBunny, sylvester, jerryTheMouse, tomTheCat, scoobyDoo}
 
-	contestants := [...]Animal{bugsBunny, sylvester, jerryTheMouse, tomTheCat}
-	var distantToRace int64
-	distantToRace = 1000 // 1 km
+	// Create a channel that will hold data sent by senders.
+	finishChannel := make(chan string)
+
+	// Prepare data	
+	var distantToRaceInMeters int64
+	distantToRaceInMeters = 1000 // 1 km
 
 	// Start the animal races
-	fmt.Println("1 km mamals race")
+	fmt.Println(distantToRaceInMeters / 1000, "km mamals race")
 	fmt.Println("================")
 
+	// Loop on each created senders
 	for m := range contestants {
-		go contestants[m].doRace(distantToRace)
+		// Invoke sender's method as go routine, with a data & a channel to hold the result of process inside the method.
+		go contestants[m].doRace(distantToRaceInMeters, finishChannel)
 	}
 	fmt.Println()
 
-	waitTime := 100
-	time.Sleep(time.Duration(waitTime) * time.Second) // wait them all until they all finished their races, for 100 seconds
+	// Loop for "a number of senders" times
+	for i := 0; i < len(contestants); i++ {
+		// the <- operator means "Fetch any data from the channel and assign it to lefthand side variable"
+		// When the data is not available on the channel yet, this loop process will be blocked, 
+		// until the channel received a data from any running go routine		
+		finishAnnouncement := <- finishChannel
+		
+		// At this point, a data has been fetched from the channel.
+		fmt.Println(finishAnnouncement, "and won position #",i+1)
+	}
 }
 
 func main() {
